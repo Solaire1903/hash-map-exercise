@@ -57,3 +57,31 @@ describe("Function test: hash", () => {
     expect(hashMap.hash("LaLiLuLeLo")).toBe(hashMap.hash("LaLiLuLeLo"));
   });
 });
+
+describe("Function test: set", () => {
+  const hashMap = new HashMap();
+  const firstKey = "blablabla";
+  const firstHashCode = hashMap.hash(firstKey);
+
+  test("New key gets set", () => {
+    hashMap.set(firstKey, 21);
+    const firstEntryValue = hashMap.buckets[firstHashCode].headNodeValue();
+    expect(firstEntryValue).toEqual(["blablabla", 21]);
+  });
+
+  test("Existing key gets set to a new value", () => {
+    hashMap.set(firstKey, 42);
+    const firstEntryValue = hashMap.buckets[firstHashCode].headNodeValue();
+    expect(firstEntryValue).toEqual(["blablabla", 42]);
+  });
+
+  const secondKey = "LaLiLuLeLo";
+  const secondHashCode = hashMap.hash(secondKey);
+
+  test("New key with the same hashcode gets set", () => {
+    hashMap.set(secondKey, 50);
+    const secondEntryValue =
+      hashMap.buckets[secondHashCode].head.nextNode.value;
+    expect(secondEntryValue).toEqual(["LaLiLuLeLo", 50]);
+  });
+});

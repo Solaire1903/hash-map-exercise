@@ -30,6 +30,46 @@ class HashMap {
 
     return hashCode;
   }
+
+  /**
+   * Gets the Node where the given key is stored. If the key
+   * does not exist in the map, return null.
+   * @param {string} key The key to search the Node for
+   * @returns The Node where the key is stored, null if it does not exist
+   */
+  nodeAt(key) {
+    const hashCode = this.hash(key);
+    const list = this.buckets[hashCode];
+    let currentNode = list.head;
+
+    while (currentNode !== null && currentNode !== undefined) {
+      if (currentNode.value[0] === key) return currentNode;
+
+      currentNode = currentNode.nextNode;
+    }
+
+    return null;
+  }
+
+  /**
+   * Adds a key-value pair to the Map. If the key already exists,
+   * the old value gets overwritten with the new value.
+   * @param {string} key
+   * @param {*} value
+   */
+  set(key, value) {
+    const hashCode = this.hash(key);
+    const list = this.buckets[hashCode];
+    const node = this.nodeAt(key);
+
+    //Check, if key already exists in a node
+    if (node !== null) {
+      node.value[1] = value;
+      return;
+    }
+
+    list.append([key, value]);
+  }
 }
 
 export default HashMap;
