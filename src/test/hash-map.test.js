@@ -60,3 +60,18 @@ describe("Function test: get", () => {
     expect(hashMap.get("invalid")).toBeUndefined();
   });
 });
+
+describe("Function test: has", () => {
+  const hashMap = new HashMap();
+  const key = "test";
+
+  hashMap.set(key, 67);
+
+  test("Key is in the map", () => {
+    expect(hashMap.has(key)).toBeTruthy();
+  });
+
+  test("Key is not in the map", () => {
+    expect(hashMap.has("invalid")).toBeFalsy();
+  });
+});

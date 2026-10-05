@@ -47,6 +47,17 @@ class HashMap {
   }
 
   /**
+   * Checks, if a given key is in the map
+   * @param {string} key The key to search for
+   * @returns True, if key is in the map, false otherwise
+   */
+  has(key) {
+    const keyNode = this.#nodeAt(key);
+
+    return keyNode !== null ? true : false;
+  }
+
+  /**
    * Takes in a string key and hashes it into a number code
    * @param {string} key The key to hash
    * @returns The hashed code
