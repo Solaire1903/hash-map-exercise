@@ -32,6 +32,17 @@ class HashMap {
   }
 
   /**
+   * Checks, if the given index is out of bounds of
+   * the bucket array and throws an error if so
+   * @param {number} index
+   */
+  checkBounds(index) {
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error("Trying to access index out of bounds");
+    }
+  }
+
+  /**
    * Gets the Node where the given key is stored. If the key
    * does not exist in the map, return null.
    * @param {string} key The key to search the Node for
@@ -39,6 +50,7 @@ class HashMap {
    */
   nodeAt(key) {
     const hashCode = this.hash(key);
+    this.checkBounds(hashCode);
     const list = this.buckets[hashCode];
     let currentNode = list.head;
 
@@ -59,6 +71,7 @@ class HashMap {
    */
   set(key, value) {
     const hashCode = this.hash(key);
+    this.checkBounds(hashCode);
     const list = this.buckets[hashCode];
     const node = this.nodeAt(key);
 
