@@ -68,10 +68,10 @@ class LinkedList {
   }
 
   /**
-   * Gets the first node (head node) of the list
-   * @returns The head node of the list
+   * Gets the list's first node's (head node) value
+   * @returns The head node's value
    */
-  headNode() {
+  headNodeValue() {
     if (this.head === null) {
       return undefined;
     }
@@ -80,10 +80,10 @@ class LinkedList {
   }
 
   /**
-   * Gets the last node (tail node) of the list
-   * @returns The tail node of the list
+   * Gets the list's last node's (tail node) value
+   * @returns The tail node's value
    */
-  tailNode() {
+  tailNodeValue() {
     if (this.head === null) {
       return undefined;
     }
