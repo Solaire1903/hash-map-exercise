@@ -15,11 +15,43 @@ class HashMap {
   }
 
   /**
+   * Adds a key-value pair to the Map. If the key already exists,
+   * the old value gets overwritten with the new value.
+   * @param {string} key
+   * @param {*} value
+   */
+  set(key, value) {
+    const hashCode = this.#hash(key);
+    this.#checkBounds(hashCode);
+    const list = this.buckets[hashCode];
+    const node = this.#nodeAt(key);
+
+    //Check, if key already exists in a node
+    if (node !== null) {
+      node.value[1] = value;
+      return;
+    }
+
+    list.append([key, value]);
+  }
+
+  /**
+   * Gets the value of the given key
+   * @param {string} key The key to find the value of
+   * @returns The value associated with the key, undefined if key does not exist
+   */
+  get(key) {
+    const keyNode = this.#nodeAt(key);
+
+    return keyNode !== null ? keyNode.value[1] : undefined;
+  }
+
+  /**
    * Takes in a string key and hashes it into a number code
    * @param {string} key The key to hash
    * @returns The hashed code
    */
-  hash(key) {
+  #hash(key) {
     let hashCode = 0;
 
     const primeNumber = 31;
@@ -48,8 +80,8 @@ class HashMap {
    * @param {string} key The key to search the Node for
    * @returns The Node where the key is stored, null if it does not exist
    */
-  nodeAt(key) {
-    const hashCode = this.hash(key);
+  #nodeAt(key) {
+    const hashCode = this.#hash(key);
     this.#checkBounds(hashCode);
     const list = this.buckets[hashCode];
     let currentNode = list.head;
@@ -61,27 +93,6 @@ class HashMap {
     }
 
     return null;
-  }
-
-  /**
-   * Adds a key-value pair to the Map. If the key already exists,
-   * the old value gets overwritten with the new value.
-   * @param {string} key
-   * @param {*} value
-   */
-  set(key, value) {
-    const hashCode = this.hash(key);
-    this.#checkBounds(hashCode);
-    const list = this.buckets[hashCode];
-    const node = this.nodeAt(key);
-
-    //Check, if key already exists in a node
-    if (node !== null) {
-      node.value[1] = value;
-      return;
-    }
-
-    list.append([key, value]);
   }
 }
 

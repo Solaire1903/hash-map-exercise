@@ -21,67 +21,42 @@ describe("Hash Map exists", () => {
   });
 });
 
-describe("Function test: hash", () => {
-  const hashMap = new HashMap();
-
-  test("Function returns a number", () => {
-    expect(typeof hashMap.hash("test")).toBe("number");
-  });
-
-  test("Number is within the bounds of the map capacity", () => {
-    expect(hashMap.hash("test")).toBeGreaterThanOrEqual(0);
-    expect(hashMap.hash("test")).toBeLessThan(hashMap.capacity);
-
-    expect(hashMap.hash("another test")).toBeGreaterThanOrEqual(0);
-    expect(hashMap.hash("another test")).toBeLessThan(hashMap.capacity);
-
-    expect(hashMap.hash("blablabla")).toBeGreaterThanOrEqual(0);
-    expect(hashMap.hash("blablabla")).toBeLessThan(hashMap.capacity);
-
-    expect(hashMap.hash("fgtetfgwfkerlp")).toBeGreaterThanOrEqual(0);
-    expect(hashMap.hash("fgtetfgwfkerlp")).toBeLessThan(hashMap.capacity);
-
-    expect(hashMap.hash("LaLiLuLeLo")).toBeGreaterThanOrEqual(0);
-    expect(hashMap.hash("LaLiLuLeLo")).toBeLessThan(hashMap.capacity);
-  });
-
-  test("The same input returns the same output", () => {
-    expect(hashMap.hash("test")).toBe(hashMap.hash("test"));
-
-    expect(hashMap.hash("another test")).toBe(hashMap.hash("another test"));
-
-    expect(hashMap.hash("blablabla")).toBe(hashMap.hash("blablabla"));
-
-    expect(hashMap.hash("fgtetfgwfkerlp")).toBe(hashMap.hash("fgtetfgwfkerlp"));
-
-    expect(hashMap.hash("LaLiLuLeLo")).toBe(hashMap.hash("LaLiLuLeLo"));
-  });
-});
-
 describe("Function test: set", () => {
   const hashMap = new HashMap();
   const firstKey = "blablabla";
-  const firstHashCode = hashMap.hash(firstKey);
 
   test("New key gets set", () => {
     hashMap.set(firstKey, 21);
-    const firstEntryValue = hashMap.buckets[firstHashCode].headNodeValue();
+    const firstEntryValue = hashMap.buckets[7].headNodeValue();
     expect(firstEntryValue).toEqual(["blablabla", 21]);
   });
 
   test("Existing key gets set to a new value", () => {
     hashMap.set(firstKey, 42);
-    const firstEntryValue = hashMap.buckets[firstHashCode].headNodeValue();
+    const firstEntryValue = hashMap.buckets[7].headNodeValue();
     expect(firstEntryValue).toEqual(["blablabla", 42]);
   });
 
   const secondKey = "LaLiLuLeLo";
-  const secondHashCode = hashMap.hash(secondKey);
 
   test("New key with the same hashcode gets set", () => {
     hashMap.set(secondKey, 50);
-    const secondEntryValue =
-      hashMap.buckets[secondHashCode].head.nextNode.value;
+    const secondEntryValue = hashMap.buckets[7].head.nextNode.value;
     expect(secondEntryValue).toEqual(["LaLiLuLeLo", 50]);
+  });
+});
+
+describe("Function test: get", () => {
+  const hashMap = new HashMap();
+  const key = "test";
+
+  hashMap.set(key, 67);
+
+  test("Get existing key's value", () => {
+    expect(hashMap.get(key)).toBe(67);
+  });
+
+  test("Key does not exist", () => {
+    expect(hashMap.get("invalid")).toBeUndefined();
   });
 });
