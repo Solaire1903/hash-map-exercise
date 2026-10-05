@@ -1,4 +1,5 @@
 import HashMap from "../hash-map.js";
+import LinkedList from "../linked-list.js";
 
 describe("Hash Map exists", () => {
   const hashMap = new HashMap();
@@ -6,6 +7,17 @@ describe("Hash Map exists", () => {
   test("Properties have correct default values", () => {
     expect(hashMap.loadFactor).toBe(0.75);
     expect(hashMap.capacity).toBe(16);
+  });
+
+  test("Bucket Array has the correct length", () => {
+    expect(hashMap.buckets.length).toBe(hashMap.capacity);
+  });
+
+  test("Bucket Array is filled with empty Linked Lists", () => {
+    hashMap.buckets.forEach((bucket) => {
+      expect(bucket instanceof LinkedList).toBeTruthy();
+      expect(bucket.size()).toBe(0);
+    });
   });
 });
 
