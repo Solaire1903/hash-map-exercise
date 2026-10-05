@@ -36,7 +36,7 @@ class HashMap {
    * the bucket array and throws an error if so
    * @param {number} index
    */
-  checkBounds(index) {
+  #checkBounds(index) {
     if (index < 0 || index >= this.buckets.length) {
       throw new Error("Trying to access index out of bounds");
     }
@@ -50,7 +50,7 @@ class HashMap {
    */
   nodeAt(key) {
     const hashCode = this.hash(key);
-    this.checkBounds(hashCode);
+    this.#checkBounds(hashCode);
     const list = this.buckets[hashCode];
     let currentNode = list.head;
 
@@ -71,7 +71,7 @@ class HashMap {
    */
   set(key, value) {
     const hashCode = this.hash(key);
-    this.checkBounds(hashCode);
+    this.#checkBounds(hashCode);
     const list = this.buckets[hashCode];
     const node = this.nodeAt(key);
 
