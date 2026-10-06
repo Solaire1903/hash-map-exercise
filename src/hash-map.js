@@ -101,6 +101,22 @@ class HashMap {
   }
 
   /**
+   * Gets all the keys in the map
+   * @returns An array containing all the keys in the map
+   */
+  keys() {
+    return this.#getSubEntries("keys");
+  }
+
+  /**
+   * Gets all the values in the map
+   * @returns An array containing all the values in the map
+   */
+  values() {
+    return this.#getSubEntries("values");
+  }
+
+  /**
    * Takes in a string key and hashes it into a number code
    * @param {string} key The key to hash
    * @returns The hashed code
@@ -147,6 +163,38 @@ class HashMap {
     }
 
     return null;
+  }
+
+  /**
+   * Gets all the keys or all the values of the map
+   * @param {string} entryToGet The type of entry to get ("keys" or "values")
+   * @returns An array containing the sub-entries
+   */
+  #getSubEntries(entryToGet) {
+    const subEntries = [];
+    let entryTypeNumber;
+
+    switch (entryToGet) {
+      case "keys":
+        entryTypeNumber = 0;
+        break;
+      case "values":
+        entryTypeNumber = 1;
+        break;
+      default:
+        return subEntries;
+    }
+
+    this.buckets.forEach((list) => {
+      let currentNode = list.head;
+
+      while (currentNode !== null) {
+        subEntries.push(currentNode.value[entryTypeNumber]);
+        currentNode = currentNode.nextNode;
+      }
+    });
+
+    return subEntries;
   }
 }
 
