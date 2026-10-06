@@ -67,7 +67,9 @@ class HashMap {
     const targetNode = this.#nodeAt(key);
     if (targetNode === null) return false;
 
-    const list = this.buckets[this.#hash(key)];
+    const hashCode = this.#hash(key);
+    this.#checkBounds(hashCode);
+    const list = this.buckets[hashCode];
     if (list.head === targetNode) {
       list.head = targetNode.nextNode;
       return true;
