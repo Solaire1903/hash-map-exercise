@@ -121,6 +121,27 @@ describe("Function test: length", () => {
   });
 });
 
+describe("Function test: clear", () => {
+  const hashMap = new HashMap();
+  const firstKey = "test";
+  const secondKey = "blablabla";
+  const thirdKey = "LaLiLuLeLo";
+
+  test("Clear empty map", () => {
+    hashMap.clear();
+    expect(hashMap.length()).toBe(0);
+  });
+
+  test("Clear map with three entries", () => {
+    hashMap.set(firstKey, 67);
+    hashMap.set(secondKey, 78);
+    hashMap.set(thirdKey, 61);
+
+    hashMap.clear();
+    expect(hashMap.length()).toBe(0);
+  });
+});
+
 describe("Function test: keys", () => {
   const hashMap = new HashMap();
   const firstKey = "test";

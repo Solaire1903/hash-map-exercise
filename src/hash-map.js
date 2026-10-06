@@ -101,6 +101,17 @@ class HashMap {
   }
 
   /**
+   * Removes all entries in the map
+   */
+  clear() {
+    this.buckets.forEach((list) => {
+      while (list.size() > 0) {
+        list.pop();
+      }
+    });
+  }
+
+  /**
    * Gets all the keys in the map
    * @returns An array containing all the keys in the map
    */
