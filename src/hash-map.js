@@ -117,6 +117,25 @@ class HashMap {
   }
 
   /**
+   * Gets all the entries in the map
+   * @returns An array containing all the entries (in their own arrays) in the map
+   */
+  entries() {
+    const entries = [];
+    const keys = this.keys();
+    const values = this.values();
+
+    let valueIndex = 0;
+    keys.forEach((key) => {
+      const entry = [key].concat(values[valueIndex]);
+      entries.push(entry);
+      valueIndex++;
+    });
+
+    return entries;
+  }
+
+  /**
    * Takes in a string key and hashes it into a number code
    * @param {string} key The key to hash
    * @returns The hashed code

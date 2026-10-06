@@ -158,3 +158,26 @@ describe("Function test: values", () => {
     expect(hashMap.values()).toEqual([67, 78, 61]);
   });
 });
+
+describe("Function test: entries", () => {
+  const hashMap = new HashMap();
+  const firstKey = "test";
+  const secondKey = "blablabla";
+  const thirdKey = "LaLiLuLeLo";
+
+  test("Empty map", () => {
+    expect(hashMap.entries()).toEqual([]);
+  });
+
+  test("Map with three entries", () => {
+    hashMap.set(firstKey, 67);
+    hashMap.set(secondKey, 78);
+    hashMap.set(thirdKey, 61);
+
+    expect(hashMap.entries()).toEqual([
+      ["test", 67],
+      ["blablabla", 78],
+      ["LaLiLuLeLo", 61],
+    ]);
+  });
+});
