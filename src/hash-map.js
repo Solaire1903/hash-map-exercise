@@ -58,6 +58,36 @@ class HashMap {
   }
 
   /**
+   * Removes a key-value pair from the map
+   * @param {*} key The key to remove the entry of
+   * @returns True, if the entry got successfully removed,
+   * false if the key entry does not exist in the map
+   */
+  remove(key) {
+    const targetNode = this.#nodeAt(key);
+    if (targetNode === null) return false;
+
+    const list = this.buckets[this.#hash(key)];
+    if (list.head === targetNode) {
+      list.head = targetNode.nextNode;
+      return true;
+    }
+
+    let currentNode = list.head;
+    while (currentNode.nextNode !== targetNode) {
+      currentNode = currentNode.nextNode;
+    }
+
+    if (targetNode.nextNode === null) {
+      currentNode.nextNode = null;
+      return true;
+    }
+
+    currentNode.nextNode = targetNode.nextNode;
+    return true;
+  }
+
+  /**
    * Takes in a string key and hashes it into a number code
    * @param {string} key The key to hash
    * @returns The hashed code

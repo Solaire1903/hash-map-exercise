@@ -75,3 +75,29 @@ describe("Function test: has", () => {
     expect(hashMap.has("invalid")).toBeFalsy();
   });
 });
+
+describe("Function test: remove", () => {
+  const hashMap = new HashMap();
+  const firstKey = "test";
+  const secondKey = "blablabla";
+  const thirdKey = "LaLiLuLeLo";
+
+  hashMap.set(firstKey, 67);
+  hashMap.set(secondKey, 78);
+  hashMap.set(thirdKey, 61);
+
+  test("Remove existing keys", () => {
+    expect(hashMap.remove(firstKey)).toBeTruthy();
+    expect(hashMap.get(firstKey)).toBeUndefined();
+
+    expect(hashMap.remove(thirdKey)).toBeTruthy();
+    expect(hashMap.get(thirdKey)).toBeUndefined();
+
+    expect(hashMap.remove(secondKey)).toBeTruthy();
+    expect(hashMap.get(secondKey)).toBeUndefined();
+  });
+
+  test("Try to remove key that does not exist", () => {
+    expect(hashMap.remove("invalid")).toBeFalsy();
+  });
+});
