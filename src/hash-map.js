@@ -88,6 +88,19 @@ class HashMap {
   }
 
   /**
+   * Returns the number of entries in the map
+   * @returns The number of entries in the map
+   */
+  length() {
+    let length = 0;
+    this.buckets.forEach((list) => {
+      length += list.size();
+    });
+
+    return length;
+  }
+
+  /**
    * Takes in a string key and hashes it into a number code
    * @param {string} key The key to hash
    * @returns The hashed code

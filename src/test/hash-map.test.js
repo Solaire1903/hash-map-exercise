@@ -101,3 +101,22 @@ describe("Function test: remove", () => {
     expect(hashMap.remove("invalid")).toBeFalsy();
   });
 });
+
+describe("Function test: length", () => {
+  const hashMap = new HashMap();
+  const firstKey = "test";
+  const secondKey = "blablabla";
+  const thirdKey = "LaLiLuLeLo";
+
+  test("Empty map", () => {
+    expect(hashMap.length()).toBe(0);
+  });
+
+  test("Map with three entries", () => {
+    hashMap.set(firstKey, 67);
+    hashMap.set(secondKey, 78);
+    hashMap.set(thirdKey, 61);
+
+    expect(hashMap.length()).toBe(3);
+  });
+});
