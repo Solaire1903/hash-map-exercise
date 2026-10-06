@@ -202,3 +202,52 @@ describe("Function test: entries", () => {
     ]);
   });
 });
+
+describe("Map Growth", () => {
+  const hashMap = new HashMap();
+
+  test("Map size doesn't grow when load factor is not exceeded", () => {
+    hashMap.set("sdfsdfds", 1);
+    hashMap.set("twerteter", 2);
+    hashMap.set("efeter", 3);
+    hashMap.set("wertwete", 4);
+    hashMap.set("ewtetesd", 5);
+    hashMap.set("riteri", 6);
+    hashMap.set("cdsijejhfut", 7);
+    hashMap.set("sfjweft", 8);
+    hashMap.set("sdoirdr", 9);
+    hashMap.set("dggrre", 10);
+    hashMap.set("asefer", 11);
+    hashMap.set("ajotgjreo", 12);
+
+    expect(hashMap.buckets.length).toBe(16);
+  });
+
+  test("Map size grows when load factor is exceeded", () => {
+    hashMap.set("sfjsdf", 13);
+
+    expect(hashMap.buckets.length).toBe(32);
+  });
+
+  test("Entries are still in the map after growth", () => {
+    expect(hashMap.length()).toBe(13);
+  });
+
+  test("Functions still work after growth", () => {
+    const testKey = "test";
+
+    hashMap.set(testKey, 42);
+    expect(hashMap.length()).toBe(14);
+    expect(hashMap.get(testKey)).toBe(42);
+    expect(hashMap.has(testKey)).toBeTruthy();
+    expect(hashMap.keys().length).toBe(14);
+    expect(hashMap.values().length).toBe(14);
+    expect(hashMap.entries().length).toBe(14);
+
+    hashMap.remove(testKey);
+    expect(hashMap.get(testKey)).toBeUndefined();
+
+    hashMap.clear();
+    expect(hashMap.length()).toBe(0);
+  });
+});

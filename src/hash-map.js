@@ -9,9 +9,7 @@ class HashMap {
     this.capacity = capacity;
     this.buckets = [];
 
-    for (let i = 0; i < capacity; i++) {
-      this.buckets.push(new LinkedList());
-    }
+    this.#initializeBuckets();
   }
 
   /**
@@ -33,6 +31,12 @@ class HashMap {
     }
 
     list.append([key, value]);
+
+    //Grow map, if the new entry exceeds load factor
+    const loadBarrier = this.loadFactor * this.capacity;
+    if (this.length() > loadBarrier) {
+      this.#growMap();
+    }
   }
 
   /**
@@ -227,6 +231,32 @@ class HashMap {
     });
 
     return subEntries;
+  }
+
+  /**
+   * Doubles the map capacity and rehashes the keys
+   */
+  #growMap() {
+    const entries = this.entries();
+    this.capacity *= 2;
+    this.buckets = [];
+    this.#initializeBuckets();
+
+    entries.forEach((entry) => {
+      const key = entry[0];
+      const value = entry[1];
+
+      this.set(key, value);
+    });
+  }
+
+  /**
+   * Initializes every bucket with an empty Linked List
+   */
+  #initializeBuckets() {
+    for (let i = 0; i < this.capacity; i++) {
+      this.buckets.push(new LinkedList());
+    }
   }
 }
 
